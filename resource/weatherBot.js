@@ -1,4 +1,5 @@
 const { getWeather } = require('./getWeather');
+const { getEarthQ } = require('./getEarthQ');
 
 // 各種通知
 var webhookEvent = function (bot) {
@@ -34,21 +35,28 @@ var webhookEvent = function (bot) {
 }
 
 // 氣象機器人
-let weatherBot = function (bot) {
-    bot.on('message', function (event) {
+let weatherBot = async function (bot) {
+
+    bot.on('message', async function (event) {
         var userMsg = event.message.text;
         console.log(userMsg);
 
-        getWeather(userMsg)
-            .then((res) => {
-                console.log(res);
-                event.reply(res);
+        if (userMsg == "help") {
+            event.reply("請對我輸入指令，目前有的指令有:\n-地震\n-[地區]，ex: 臺北")
+        } else if (userMsg == "地震") {
+            let earthQImg = await getEarthQ();
+            event.reply({
+                type: 'image',
+                originalContentUrl: earthQImg,
+                previewImageUrl: earthQImg
             })
-            .catch((err) => {
-                console.log(err);
-                event.reply('Oops, 好像哪裡出錯了...');
-            });
-        
+
+        } else {
+            let weather = await getWeather(userMsg);
+            event.reply(weather); // flex msg
+
+        }
+
     });
 }
 
