@@ -8,7 +8,6 @@ var getEarthQ = function () {
     return new Promise((resolve, reject) => {
         axios.get(encodeURI(URI))
             .then(async (res) => {
-                // console.log(res.data.records.earthquake[0].reportImageURI);
                 const { reportImageURI } = res.data.records.earthquake[0];
                 resolve(reportImageURI);
             })

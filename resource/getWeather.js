@@ -8,7 +8,6 @@ var getWeather = function (userInputLocation) {
     return new Promise((resolve, reject) => {
         axios.get(encodeURI(URI))
             .then(async (res) => {
-                // console.log(res);
                 try {
                     const { locationName, time, weatherElement } = res.data.records.location[0];
     
@@ -27,7 +26,6 @@ var getWeather = function (userInputLocation) {
                 }
             })
             .catch((err) => {
-                // console.log(err);
                 reject(err);
             });
     })

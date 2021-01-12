@@ -45,6 +45,8 @@ let weatherBot = async function (bot) {
             event.reply("請對我輸入指令，目前有的指令有:\n-地震\n-[地區]，ex: 臺北")
         } else if (userMsg == "地震") {
             let earthQImg = await getEarthQ();
+            console.log(earthQImg);
+            
             event.reply({
                 type: 'image',
                 originalContentUrl: earthQImg,
@@ -53,6 +55,8 @@ let weatherBot = async function (bot) {
 
         } else {
             let weather = await getWeather(userMsg);
+            console.log(weather);
+            
             event.reply(weather); // flex msg
 
         }
