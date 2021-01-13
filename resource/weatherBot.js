@@ -1,5 +1,6 @@
-const { getWeather } = require('./getWeather');
+const { getWeather, getWeatherObject } = require('./getWeather');
 const { getEarthQ } = require('./getEarthQ');
+const { getFlexMsg } = require('./getFlexMsg');
 
 // 各種通知
 var webhookEvent = function (bot) {
@@ -45,8 +46,7 @@ let weatherBot = async function (bot) {
             event.reply("請對我輸入指令，目前有的指令有:\n-地震\n-[地區]，ex: 臺北")
         } else if (userMsg == "地震") {
             let earthQImg = await getEarthQ();
-            console.log(earthQImg);
-            
+
             event.reply({
                 type: 'image',
                 originalContentUrl: earthQImg,
@@ -54,10 +54,19 @@ let weatherBot = async function (bot) {
             })
 
         } else {
-            let weather = await getWeather(userMsg);
+            // let weather = await getWeather(userMsg);
+            // console.log(weather);
+            // event.reply(weather);
+
+            let weather = await getWeatherObject(userMsg);
             console.log(weather);
-            
-            event.reply(weather); // flex msg
+
+            if (weather.status == 200) {
+                let replyMsg = getFlexMsg(weather);
+                event.reply(replyMsg);
+            } else {
+                event.reply(weather.msg);
+            }
 
         }
 
