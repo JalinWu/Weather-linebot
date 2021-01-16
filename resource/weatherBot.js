@@ -55,7 +55,6 @@ let weatherBot = async function (bot) {
 
         } else {
             // let weather = await getWeather(userMsg);
-            // console.log(weather);
             // event.reply(weather);
 
             let weather = await getWeatherObject(userMsg);

@@ -7,6 +7,7 @@ var getFlexMsg = function (weather) {
         "altText": "this is a flex message"
     })
 
+    // Put your code into contents, then change value. Gogogo~ 
     replyMsg.contents = {
         "type": "bubble",
         "body": {
